@@ -1,0 +1,50 @@
+{
+  "name": "@overengineered-solutions/eslint-plugin-portfolio",
+  "version": "0.1.1",
+  "description": "Portfolio-wide ESLint rules enforcing the observability doctrine — silent-zero is the failure mode. Today: no-untyped-external-response.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "eslint": ">=9.0.0"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/rule-tester": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overengineered-solutions/eslint-plugin-portfolio.git"
+  },
+  "homepage": "https://github.com/overengineered-solutions/eslint-plugin-portfolio#readme",
+  "bugs": {
+    "url": "https://github.com/overengineered-solutions/eslint-plugin-portfolio/issues"
+  }
+}
