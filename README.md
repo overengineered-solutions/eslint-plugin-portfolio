@@ -8,7 +8,9 @@ Portfolio-wide ESLint rules enforcing the observability doctrine documented in e
 pnpm add -D @overengineered-solutions/eslint-plugin-portfolio
 ```
 
-Requires `NODE_AUTH_TOKEN` in your environment (and CI) with `read:packages` scope. See the umbrella `oesolutions` repo `/admin/secrets` for the canonical token.
+This package lives on GitHub Packages. Even though it's published with `--access public`, GitHub Packages still requires a valid GitHub token for download — see [`feedback_package_visibility_rule.md`](https://github.com/overengineered-solutions/) for the gotcha.
+
+For CI workflows in the `overengineered-solutions` org, grant `permissions: packages: read` and pass `NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}` on install. For non-GitHub runners (Vercel, local dev), use a PAT with `read:packages` scope.
 
 ## Wire into `eslint.config.mjs`
 
@@ -64,9 +66,9 @@ if (!parsed.success) {
 
 ## Versioning
 
-Semver. Tag `eslint-plugin-portfolio-vX.Y.Z` on a commit to trigger the publish workflow (see `.github/workflows/publish-eslint-plugin-portfolio.yml`).
+Semver. Tag `vX.Y.Z` on a commit to trigger the publish workflow (see `.github/workflows/publish.yml`). The workflow asserts that the tag matches `package.json` before publishing.
 
 ## See also
 
-- Memory: `feedback_external_api_observability_doctrine.md`
 - Sister package: `@overengineered-solutions/test-kit`
+- Memory (in the agent's persistent memory system): `feedback_external_api_observability_doctrine.md`
