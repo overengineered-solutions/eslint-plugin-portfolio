@@ -1,8 +1,8 @@
 {
   "name": "@overengineered-solutions/eslint-plugin-portfolio",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Portfolio-wide ESLint rules enforcing the observability doctrine — silent-zero is the failure mode. Today: no-untyped-external-response.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,9 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -36,8 +38,9 @@
     "typescript": "^5.7.0"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true
   },
   "repository": {
     "type": "git",

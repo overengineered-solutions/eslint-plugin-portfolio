@@ -15,7 +15,10 @@ on:
 
 permissions:
   contents: read
-  packages: write
+  # id-token: write is required for npm provenance attestation
+  # (Sigstore-backed signature linking the published artifact to
+  # this exact workflow run + commit).
+  id-token: write
 
 jobs:
   publish:
@@ -31,15 +34,16 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          registry-url: https://npm.pkg.github.com
-          scope: '@overengineered-solutions'
+          registry-url: https://registry.npmjs.org
 
       - run: pnpm install --frozen-lockfile
 
       - name: Verify tag matches package version
         if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          TAG_NAME: ${{ github.ref_name }}
         run: |
-          tag_version="${GITHUB_REF_NAME#v}"
+          tag_version="${TAG_NAME#v}"
           pkg_version=$(node -p "require('./package.json').version")
           if [ "$tag_version" != "$pkg_version" ]; then
             echo "tag ($tag_version) does not match package.json version ($pkg_version)" >&2
@@ -62,8 +66,8 @@ jobs:
           echo "--- tarball contents ---"
           tar -tzf *.tgz | head -40
 
-      - name: Publish to GitHub Packages
+      - name: Publish to npmjs with provenance
         if: startsWith(github.ref, 'refs/tags/v') || inputs.dry_run == 'false'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm publish --no-git-checks --access public
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --no-git-checks --access public --provenance
