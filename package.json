@@ -1,7 +1,7 @@
 {
   "name": "@overengineered-solutions/eslint-plugin-portfolio",
-  "version": "0.2.0",
-  "description": "Portfolio-wide ESLint rules enforcing the observability doctrine — silent-zero is the failure mode. Today: no-untyped-external-response.",
+  "version": "0.3.0",
+  "description": "Portfolio-wide ESLint rules: OES observability doctrine (no-untyped-external-response) + Tailwind v4 bracketed-route CSS-drop guard (no-tailwind-arbitrary-in-bracketed-route).",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -21,7 +21,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node --test test/*.test.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
