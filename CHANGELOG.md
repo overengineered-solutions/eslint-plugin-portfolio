@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 — 2026-05-26
+
+Adds rule `no-platform-stripe-in-tenant-scope` (workspace-scoped credential resolution guard).
+
+- **New rule**: `portfolio/no-platform-stripe-in-tenant-scope` bans configurable imports + call expressions of a platform-scoped helper from any file outside an explicit allowlist. Motivating case: makeros tier-sync subsystem called `getStripe()` (the platform `STRIPE_SECRET_KEY` singleton) while the rest of the workspace-scoped code resolved through `getStripeForWorkspace(workspaceId)` — so for a BYO-mode tenant, tier mutations landed in the wrong Stripe environment (test mode) while invoicing landed in the right one (live mode), and live customer checkouts broke. AI_STANDARDS R1.1 ("converge on the canonical pattern") + R2.8 ("cross-tenant credential reads forbidden by default") combine to make this a doctrine violation; this rule turns it into a compile-time error.
+- Project-agnostic: configurable `banned: { module, name }` + `allowedFiles` glob list, so each consumer can wire it for their own platform-vs-tenant helper pairs. Default options target `getStripe` from `**/billing/stripe`.
+- 8 unit tests via `@typescript-eslint/rule-tester` covering: untouched files, allowlist passthrough, banned module + name, alias renames, allowlist via `**` glob.
+
 ## 0.3.0 — 2026-05-18
 
 Adds rule `no-tailwind-arbitrary-in-bracketed-route` (Tailwind v4 prod CSS-drop guard).

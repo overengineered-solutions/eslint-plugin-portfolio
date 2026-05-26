@@ -1,7 +1,7 @@
 {
   "name": "@overengineered-solutions/eslint-plugin-portfolio",
-  "version": "0.3.0",
-  "description": "Portfolio-wide ESLint rules: OES observability doctrine (no-untyped-external-response) + Tailwind v4 bracketed-route CSS-drop guard (no-tailwind-arbitrary-in-bracketed-route).",
+  "version": "0.4.0",
+  "description": "Portfolio-wide ESLint rules: OES observability doctrine (no-untyped-external-response) + Tailwind v4 bracketed-route CSS-drop guard (no-tailwind-arbitrary-in-bracketed-route) + workspace-scoped credential resolution (no-platform-stripe-in-tenant-scope).",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
